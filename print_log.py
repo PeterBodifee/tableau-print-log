@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-VERSION='0.1'
+VERSION='0.2'
 
 # standard library imports
 import sys
@@ -117,6 +117,8 @@ def print_line(line_in_logfile, sev_filter=None, type_filter=None):
 
     # the actual log message is in "v" and its type is keyed with "k"
     msg_timestamp=line["ts"]
+    msg_pid=str(line["pid"])
+    msg_tid=line["tid"]
     msg_severity=line["sev"]
     msg_type=line["k"]
     log_msg=line["v"]
@@ -147,8 +149,10 @@ def print_line(line_in_logfile, sev_filter=None, type_filter=None):
 
     # output log entry
     print("-"*80)
-    print("{t} | {s:6} | {k} :\n{m}".
+    print("{t} | pid={pi:8} | tid={ti:8} | {s:6} | {k} :\n{m}".
           format(t=msg_timestamp,
+                 pi=msg_pid,
+                 ti=msg_tid,
                  s=msg_severity,
                  k=msg_type,
                  m=msg
